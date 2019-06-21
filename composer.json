@@ -1,0 +1,27 @@
+{
+    "name": "railken/artisan",
+    "type": "library",
+    "keywords": ["laravel", "artisan"],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1",
+        "symfony/console": "^4.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "orchestra/testbench": "3.6.*"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Railken\\Artisan\\" : "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": { 
+            "Railken\\Artisan\\Tests\\": "tests/" 
+        }
+    },
+    "bin": [
+        "bin/artisan"
+    ]
+}
