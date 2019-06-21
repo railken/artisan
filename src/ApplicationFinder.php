@@ -6,6 +6,7 @@ use ReflectionClass;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Orchestra\Testbench\TestCase;
+use Dotenv\Dotenv;
 
 class ApplicationFinder
 {
@@ -95,8 +96,21 @@ class ApplicationFinder
         return $files;
     }
 
+    public function loadEnvironment()
+    {
+        if (is_callable(Dotenv::class, 'create')) {
+            $dotenv = Dotenv::create(getcwd());
+        } else {
+            $dotenv = new Dotenv(getcwd());
+        }
+        
+        $dotenv->load();
+    }
+
     public function findApplication()
     {
+
+        $this->loadEnvironment();
 
         $classes = [];
 
@@ -110,6 +124,7 @@ class ApplicationFinder
 
                     if (!$reflection->isAbstract()) {
                         $classes[] = $class;
+                        break;
                     }
                 }
             }
