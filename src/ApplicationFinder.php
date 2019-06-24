@@ -98,13 +98,17 @@ class ApplicationFinder
 
     public function loadEnvironment()
     {
-        if (method_exists(Dotenv::class, 'create')) {
-            $dotenv = Dotenv::create(getcwd());
-        } else {
-            $dotenv = new Dotenv(getcwd());
+        try {
+            if (method_exists(Dotenv::class, 'create')) {
+                $dotenv = Dotenv::create(getcwd());
+            } else {
+                $dotenv = new Dotenv(getcwd());
+            }
+            
+            $dotenv->load();
+        } catch (\Dotenv\Exception\InvalidPathException $e) {
+            // Ignore missing .env files.
         }
-        
-        $dotenv->load();
     }
 
     public function findApplication()
