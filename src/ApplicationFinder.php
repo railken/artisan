@@ -98,9 +98,9 @@ class ApplicationFinder
 
     public function loadEnvironment()
     {
-        if (is_callable(Dotenv::class, 'create')) {
+        try {
             $dotenv = Dotenv::create(getcwd());
-        } else {
+        } catch (\Exception $e) {
             $dotenv = new Dotenv(getcwd());
         }
         
